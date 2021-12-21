@@ -1,6 +1,10 @@
 # Find-Movie
 
-
+## ScreenShots 🛠
+<p>
+<img src = "app/src/main/res/drawable/one.png"/>
+<img src = "app/src/main/res/drawable/two.png"/>
+</p>
 
 ## Built With 🛠
 - [Kotlin](https://kotlinlang.org/) - First class and official programming language for Android development.
