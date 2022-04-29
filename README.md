@@ -1,5 +1,5 @@
 # Find-Movie
-
+-
 ## ScreenShots 🛠
 <p align="center">
 <img src = "app/src/main/res/drawable/one.png"/>
