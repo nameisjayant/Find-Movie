@@ -31,7 +31,7 @@ class MovieDetailActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FindMovieTheme() {
-                androidx.compose.material.Surface {
+                Surface {
                     val bundle = intent.extras
                     val image = bundle?.getString("image")
                     val name = bundle?.getString("title")

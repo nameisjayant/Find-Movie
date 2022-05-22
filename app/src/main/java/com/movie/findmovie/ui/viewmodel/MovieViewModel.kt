@@ -18,7 +18,9 @@ import javax.inject.Inject
 class MovieViewModel
 @Inject
 constructor(private val movieRepository: MovieRepository) : ViewModel() {
-    val response: MutableState<ApiStates> = mutableStateOf(ApiStates.Empty)
+
+    val response: MutableState<MovieContract.MovieState> =
+        mutableStateOf(MovieContract.MovieState())
 
     init {
         getPost()
@@ -26,12 +28,31 @@ constructor(private val movieRepository: MovieRepository) : ViewModel() {
 
     private fun getPost() = viewModelScope.launch {
         movieRepository.getMovieList()
-            .onStart {
-                response.value = ApiStates.Loading
-            }.catch { e ->
-                response.value = ApiStates.Failure(e)
-            }.collect { data ->
-                response.value = ApiStates.Success(data)
+            .collect {
+                when (it) {
+                    is ApiResponse.Success -> {
+                        response.value = MovieContract.MovieState(
+                            it.data.results,
+                            error = "",
+                            isLoading = false
+                        )
+                    }
+                    is ApiResponse.Failure -> {
+                        response.value = MovieContract.MovieState(
+                            emptyList(),
+                            error = it.msg,
+                            isLoading = false
+                        )
+                    }
+                    ApiResponse.Loading -> {
+                        response.value = MovieContract.MovieState(
+                            emptyList(),
+                            error = "",
+                            isLoading = true
+                        )
+                    }
+
+                }
             }
     }
 }

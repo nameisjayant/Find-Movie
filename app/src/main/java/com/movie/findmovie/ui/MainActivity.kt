@@ -66,33 +66,35 @@ class MainActivity : ComponentActivity() {
 @ExperimentalMaterialApi
 @Composable
 fun GETData(viewModel: MovieViewModel, context: Context) {
-    when (val result = viewModel.response.value) {
-        is ApiStates.Success -> {
-            LazyColumn {
-                items(result.data.results) { response ->
-                    MovieList(response) {
-                        onGettingClick(response, context)
-                    }
+
+    if(viewModel.response.value.data.isNotEmpty())
+
+        LazyColumn {
+            items(viewModel.response.value.data) { response ->
+                MovieList(response) {
+                    onGettingClick(response, context)
                 }
             }
         }
-        is ApiStates.Failure -> {
-            Text(text = "${result.msg}")
-        }
-        ApiStates.Loading -> {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                CircularProgressIndicator()
-            }
 
+    if(viewModel.response.value.error.isNotEmpty())
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(text = viewModel.response.value.error)
         }
-        ApiStates.Empty -> {
 
+    if(viewModel.response.value.isLoading)
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            CircularProgressIndicator()
         }
-    }
+
 
 }
 

@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class MovieRepository @Inject constructor(private val apiService: ApiService) {
 
-    fun getMovieList(): Flow<Movies> = flow {
-        emit(apiService.getMoviesList())
-    }.flowOn(Dispatchers.IO)
+    fun getMovieList() = toResultFlow {
+        apiService.getMoviesList()
+    }
 }
