@@ -2,8 +2,8 @@
 --
 ## ScreenShots 🛠
 <p align="center">
-<img src = "app/src/main/res/drawable/one.png"/>
-<img src = "app/src/main/res/drawable/two.png"/>
+<img src = "app/src/main/res/drawable/one.png" height = 300px/>
+<img src = "app/src/main/res/drawable/two.png" height = 300px/>
 </p>
 
 ## Built With 🛠
